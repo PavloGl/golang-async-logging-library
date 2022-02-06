@@ -67,6 +67,8 @@ func (al Alog) write(msg string, wg *sync.WaitGroup) error {
 }
 
 func (al Alog) shutdown() {
+	close(al.msgCh)
+	al.shutdownCompleteCh <- struct{}{}
 }
 
 // MessageChannel returns a channel that accepts messages that should be written to the log.
