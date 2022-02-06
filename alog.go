@@ -29,10 +29,12 @@ func New(w io.Writer) *Alog {
 		w = os.Stdout
 	}
 	return &Alog{
-		dest:    w,
-		msgCh:   make(chan string),
-		errorCh: make(chan error),
-		m:       &sync.Mutex{},
+		dest:               w,
+		m:                  &sync.Mutex{},
+		msgCh:              make(chan string),
+		errorCh:            make(chan error),
+		shutdownCh:         make(chan struct{}),
+		shutdownCompleteCh: make(chan struct{}),
 	}
 }
 
